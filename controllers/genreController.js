@@ -1,10 +1,18 @@
 const Genre = require("../models/genre");
 const { body, validationResult } = require("express-validator");
 
-
 // Display list of all Genre.
-exports.genre_list = (req, res) => {
-  res.send("NOT IMPLEMENTED: Genre list");
+exports.genre_list = (req, res, next) => {
+  Genre.find().sort([["name", "ascending"]]).exec((err, list_genre) => {
+    if (err) {
+      return next(err);
+    }
+    //Successful, so render
+    res.render("genre_list", {
+      title: "Genre List",
+      genre_list: list_genre,
+    });
+  });
 };
 
 // Display detail page for a specific Genre.
@@ -62,7 +70,6 @@ exports.genre_create_post = [
     }
   },
 ];
-
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = (req, res) => {
