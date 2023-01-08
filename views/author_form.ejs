@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <% 
+    let first_name = ''; 
+    let family_name = '';
+    let birth_date = '';
+    let death_date = '';
+    if (typeof author != 'undefined') {
+      first_name = author.first_name;
+      family_name = author.family_name;
+      birth_date = author.birth_date;
+      death_date = author.death_date; 
+    }
+  %>
+  <h1><%= title %></h1>
+  <form action="" method="post">
+    <div class="form-group">
+      <label for="first-name">First Name:</label>
+      <input type="text" id="first-name" class="form-control" placeholder="First Name" name="first_name" required="true" value=<%= first_name %>>
+      <label for="family-name">Family Name:</label>
+      <input type="text" id="family-name" class="form-control" placeholder="Family Name" name="family_name" required="true" value=<%= family_name %>>
+    </div>
+    <div class="form-group">
+      <label for="date_of_birth">Date of birth:</label>
+      <input type="date" id="date_of_birth" class="form-control" name="date_of_birth" value=<%= birth_date %>>
+      <label for="date_of_death">Date of death:</label>
+      <input type="date" id="date_of_death" class="form-control" name="date_of_death" value=<%= death_date %>>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+  <% if (typeof errors != 'undefined') { %>
+  <ul>
+    <% for(let error of errors) { %>
+    <li><%= error.msg %> </li>
+    <% } %>
+  </ul>
+  <% } %>
+</body>
+
+</html>
