@@ -35,7 +35,6 @@ function authorCreate(first_name, family_name, d_birth, d_death, cb) {
   if (d_death != false) authordetail.date_of_death = d_death
   
   var author = new Author(authordetail);
-       
   author.save(function (err) {
     if (err) {
       cb(err, null)
@@ -220,7 +219,6 @@ function(err, results) {
     }
     else {
         console.log('BOOKInstances: '+bookinstances);
-        
     }
     // All done, disconnect from database
     mongoose.connection.close();
