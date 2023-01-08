@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <% 
+    let value = '';
+    if (typeof genre != 'undefined')
+      value = genre.name; 
+  %>
+  <h1><%= title %></h1>
+  <form action="" method="post">
+    <div class="form-group">
+      <label for="name">Genre:</label>
+      <input type="text" id="name" class="form-control" placeholder="Fantasy, Poetry etc." name="name" value=<% value %>>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+  </form>
+  <% if (typeof errors != 'undefined') { %>
+  <ul>
+    <% for(let error of errors) { %>
+    <li><%= error.msg %> </li>
+    <% } %>
+  </ul>
+  <% } %>
+</body>
+
+</html>
