@@ -138,7 +138,6 @@ exports.author_delete_get = (req, res, next) => {
     },
     (err, results) => {
       if (err) {
-        console.log(req.params.id);
         return next(err);
       }
       if (results.author == null) {
