@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<% 
+  let imprint = '';
+  let due_back = '';
+  let id = '';
+  if (typeof bookinstance !== 'undefined') {
+    imprint = bookinstance.imprint;
+    due_back = bookinstance.due_back;
+    id = selected_book;
+  }
+%>
+
+<% book_list.sort(function (a, b) {
+  let textA = a.title.toUpperCase(); 
+  let textB = b.title.toUpperCase(); 
+  return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+}) %>
+
+<body>
+  <h1><%= title %></h1>
+  <form action="" method="post">
+    <div class="form-group">
+      <label for="book">Book:</label>
+      <select name="book" id="book" class="form-control" required="true">
+        <% for (let book of book_list) { %>
+        <option value="<%= book._id %>" selected="<%=id == book._id.toString() ? 'selected' : false %>">
+          <%= book.title %>
+        </option>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="imprint">Imprint:</label>
+      <input type="text" placeholder="Publisher and date information" name="imprint" id="imprint" class="form-control" value=<%= imprint %>>
+      <label for="due_back">Date when book available:</label>
+      <input type="date" name="due_back" id="due_back" class="form-control" value=<%= due_back %>>
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select name="status" id="status" class="form-control" required="true">
+        <option value="Maintenance">Maintenance</option>
+        <option value="Available">Available</option>
+        <option value="Loaned">Loaned</option>
+        <option value="Reserved">Reserved</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <% if (typeof errors != 'undefined') { %>
+  <ul>
+    <% for(let error of errors) { %>
+    <li><%= error.msg %> </li>
+    <% } %>
+  </ul>
+  <% } %>
+</body>
+
+</html>
