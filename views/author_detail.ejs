@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title><%= author.name %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <h1><%= author.name %></h1>
-    <p>
-      <%= author.birth_date_formatted %> - <%= author.death_date_formatted %>
-    </p>
-    <div style="margin-left: 20px; margin-top: 20px">
-      <h4>Books</h4>
-      <dl>
-        <% if (author_books.length == 0) { %>
-        <p>This author has no books.</p>
-        <% } %> <% for (let book of author_books) { %>
-        <dt>
-          <a href=<%= book.url %>><%= book.title %> </a>
-        </dt>
-        <dd><%= book.summary %></dd>
-        <% } %>
-      </dl>
-    </div>
-  </body>
+
+<head>
+  <title><%= author.name %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <h1><%= author.name %></h1>
+  <p>
+    <%= author.birth_date_formatted %> - <%= author.death_date_formatted %>
+  </p>
+  <div style="margin-left: 20px; margin-top: 20px">
+    <h4>Books</h4>
+    <dl>
+      <% if (author_books.length == 0) { %>
+      <p>This author has no books.</p>
+      <% } %> <% for (let book of author_books) { %>
+      <dt>
+        <a href=<%= book.url %>><%= book.title %> </a>
+      </dt>
+      <dd><%= book.summary %></dd>
+      <% } %>
+    </dl>
+  </div>
+  <hr>
+  <p><a href=<%= author.url+'/delete' %>> Delete author </a></p>
+</body>
+
 </html>
