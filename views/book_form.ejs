@@ -6,23 +6,13 @@
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
-<% 
-  let bookTitle = ''; 
-  let family_name = '';
-  let birth_date = '';
-  let death_date = '';
-  if (typeof book != 'undefined') {
-    bookTitle = book.title;
-  }
-%>
-
 <body>
   <h1><%= title %></h1>
   <form action="" method="post">
 
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" id="title" class="form-control" placeholder="Name of book" required="true" name="title" value=<%= bookTitle %>>
+      <input type="text" id="title" class="form-control" placeholder="Name of book" required="true" name="title" value="<%= typeof book === "undefined" ? '' : book.title %>">
     </div>
 
     <div class="form-group">
@@ -36,11 +26,12 @@
         })%>
         <% for (let author of authors) { %>
         <% if (typeof book != "undefined") { %>
-        <option value="<%=author._id%>" selected="<%=author._id.toString()===book.author._id.toString() ? 'selected' : false %>">
+        <option value=<%=author._id%> <%=author._id.toString()==book.author._id.toString() ||
+          author._id.toString() == book.author ? 'selected' : '' %>>
           <%= author.name %>
         </option>
         <% } else { %>
-        <option value="<%= author._id %>"><%= author.name %></option>
+        <option value=<%= author._id %>><%= author.name %></option>
         <% } 
         } %>
       </select>
@@ -48,15 +39,14 @@
 
     <div class="form-group">
       <label for="summary">Summary:</label>
-      <input type="text" id="summary" class="form-control" placeholder="Summary" required="true" name="summary">
-      <%= typeof book === "undefined" ? '' : book.summary %>
+      <input type="text" id="summary" class="form-control" placeholder="Summary" required="true" name="summary" value="<%= typeof book === "undefined" ? '' : book.summary %>">
       </input>
     </div>
 
     <div class="form-group">
       <label for="isbn">ISBN:</label>
-      <input type="text" id="isbn" class="form-control" placeholder="ISBN13" required="true" name="isbn">
-      <%= typeof book === "undefined" ? '' : book.isbn %>
+      <input type="text" id="isbn" class="form-control" placeholder="ISBN13" required="true" name="isbn" value="<%= typeof book === "undefined" ? '' : book.isbn %>">
+
       </input>
     </div>
 
@@ -65,7 +55,7 @@
       <div>
         <% for(let genre of genres) { %>
         <div style="display:inline; padding-right: 10px;">
-          <input type="checkbox" class="checkbox-input" name="genre" id="<%=genre._id%>" value="<%= genre._id %>">
+          <input type="checkbox" class="checkbox-input" name="genre" id="<%= genre._id %>" value="<%= genre._id %>" <%= genre.checked ? "checked" : '' %>>
           <label for="<%=genre._id%>"><%= genre.name %> </label>
         </div>
         <% } %>
