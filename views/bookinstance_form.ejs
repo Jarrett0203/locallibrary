@@ -13,44 +13,57 @@
   if (typeof bookinstance !== 'undefined') {
     imprint = bookinstance.imprint;
     due_back = bookinstance.due_back;
-    id = selected_book;
+    id = bookinstance.book._id;
   }
 %>
 
-<% book_list.sort(function (a, b) {
-  let textA = a.title.toUpperCase(); 
-  let textB = b.title.toUpperCase(); 
-  return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-}) %>
+<% 
+    book_list.sort(function (a, b) {
+      let textA = a.title.toUpperCase(); 
+      let textB = b.title.toUpperCase(); 
+      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+    }) 
+%>
 
 <body>
   <h1><%= title %></h1>
   <form action="" method="post">
     <div class="form-group">
       <label for="book">Book:</label>
-      <select name="book" id="book" class="form-control" required="true">
+      <select name="book" id="book" class="form-control" required="true">>
         <% for (let book of book_list) { %>
-        <option value="<%= book._id %>" selected="<%=id == book._id.toString() ? 'selected' : false %>">
+        <% if (typeof bookinstance != "undefined") { %>
+        <option value=<%= book._id %> <%=id == book._id.toString() || bookinstance.book == book._id.toString ? 'selected' : '' %>>
           <%= book.title %>
         </option>
+        <% } else { %>
+        <option value=<%= book._id %>>
+          <%= book.title %>
+        </option>
+        <% } %>
         <% } %>
       </select>
     </div>
 
     <div class="form-group">
       <label for="imprint">Imprint:</label>
-      <input type="text" placeholder="Publisher and date information" name="imprint" id="imprint" class="form-control" value=<%= imprint %>>
+      <input type="text" placeholder="Publisher and date information" name="imprint" id="imprint" class="form-control" value="<%= imprint %>">
       <label for="due_back">Date when book available:</label>
-      <input type="date" name="due_back" id="due_back" class="form-control" value=<%= due_back %>>
+      <input type="date" name="due_back" id="due_back" class="form-control" value="<%= bookinstance.due_back_ISO %>">
     </div>
 
     <div class="form-group">
       <label for="status">Status:</label>
       <select name="status" id="status" class="form-control" required="true">
-        <option value="Maintenance">Maintenance</option>
-        <option value="Available">Available</option>
-        <option value="Loaned">Loaned</option>
-        <option value="Reserved">Reserved</option>
+        <% const options = ["Maintenance", "Available", "Loaned", "Reserved"]; %>
+        <% for (let i = 0; i < options.length; i++) { %>
+        <% if (typeof bookinstance != "undefined") { %>
+        <% const selected = bookinstance.status == options[i] ? "selected" : ""; %>
+        <option value="<%= options[i] %>" <%= selected %>> <%= options[i] %> </option>
+        <% } else { %>
+        <option value="<%= options[i] %>"> <%= options[i] %> </option>
+        <% } %>
+        <% } %>
       </select>
     </div>
 
