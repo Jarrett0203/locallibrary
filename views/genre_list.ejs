@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <% if (genre_list.length == 0) { %>
-      <li>There are no genres.</li>
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <h1><%= title %></h1>
+  <% if (genre_list.length == 0) { %>
+  <li>There are no genres.</li>
+  <% } %>
+  <ul>
+    <% for (let genre of genre_list) { %>
+    <li>
+      <a href=<%=genre.url%>><%= genre.name%></a>
+    </li>
     <% } %>
-    <ul>
-      <% for (let genre of genre_list) { %>
-        <li>
-          <a href=<%=genre.url%>><%= genre.name%></a>
-        </li>
-      <% } %>
-    </ul>
-  </body>
+  </ul>
+</body>
+
 </html>

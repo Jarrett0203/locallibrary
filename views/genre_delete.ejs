@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <h1><%= title %>: <%= genre.name %> </h1>
+  <p>Do you really want to delete this genre?</p>
+  <form action="" method="post">
+    <div class="form-group">
+      <input type="hidden" id="genreid" class="form-control" name="genreid" required="true" value=<%= genre._id %>>
+    </div>
+    <button class="btn btn-primary" type="submit">Delete</button>
+  </form>
+</body>
+
+</html>
