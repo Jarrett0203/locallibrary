@@ -23,7 +23,6 @@
     <% bookInstances.forEach(bookInstance => { %>
     <dt>
       <a href="<%= bookInstance.url %>"> <%= bookInstance.imprint %> : <%= bookInstance.status %> </a>
-    <dd><%= bookInstance.due_back_formatted %> </dd>
     </dt>
     <% }) %>
   </dl>

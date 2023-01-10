@@ -266,7 +266,6 @@ exports.book_delete_post = (req, res, next) => {
       })
     }
   );
-      
 };
 
 // Display book update form on GET.
