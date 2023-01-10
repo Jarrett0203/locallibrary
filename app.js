@@ -15,9 +15,12 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
+const catalogRouter = require("./routes/catalog");
+const compression = require("compression"); //Import routes for "catalog" area of site
 
 var app = express();
+
+app.use(compression());
 
 var livereload = require("livereload");
 var connectLiveReload = require("connect-livereload");
